@@ -90,3 +90,27 @@ describe("number of queries cache feature", () => {
         expect(cache.get(key)).toBe(null);
     });
 });
+
+describe('cache statistics', () => {
+    it('should return empty list for no queries', () => {
+        let cache = new Cache();
+
+
+        const statistics = cache.statistics();
+        expect(statistics).toEqual([]);
+    });
+
+    it('should return queries list for one query', () => {
+        const key = "key";
+        const value = "value";
+        const number_of_queries = 3;
+        let cache = new Cache();
+
+        cache.set(key, value, number_of_queries) ;
+        cache.get(key);
+
+        const statistics = cache.statistics();
+        expect(statistics).toEqual([`set ${key}, ${value}, ${number_of_queries}`, 
+                                    `get ${key} ${number_of_queries - 1}`]);
+    });
+});
