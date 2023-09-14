@@ -1,14 +1,14 @@
 class Cache{
     constructor () {
         this.data = new Map()
-        this.statistics_list = []
+        this.statisticsList = []
     }
-    set(key, value, number_of_queries=1) {
+    set(key, value, numberOfQueries=1) {
         this.data.set(key, {
             value: value,
-            number_of_queries: number_of_queries
+            numberOfQueries: numberOfQueries
         });
-        this.statistics_list.push(`set ${key}, ${value}, ${number_of_queries}`)
+        this.statisticsList.push(`set ${key}, ${value}, ${numberOfQueries}`)
     }
 
     get(key) {
@@ -17,19 +17,19 @@ class Cache{
             return null
         }
 
-        if (valueObject.number_of_queries === 0) {
+        if (valueObject.numberOfQueries === 0) {
             this.data.delete(key)
             return null;
         }
 
-        valueObject.number_of_queries -= 1;
+        valueObject.numberOfQueries -= 1;
 
-        this.statistics_list.push(`get ${key} ${valueObject.number_of_queries}`)
+        this.statisticsList.push(`get ${key} ${valueObject.numberOfQueries}`)
         return valueObject.value
     }
 
     statistics() {
-        return this.statistics_list;
+        return this.statisticsList;
     }
 }
 export {Cache}

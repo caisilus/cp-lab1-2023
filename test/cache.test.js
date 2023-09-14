@@ -8,17 +8,17 @@ describe('basic chache get/set functionality', () => {
 
         cache.set(key, value);
 
-        let cached_value = cache.get(key);
-        expect(cached_value).toBe(value);
+        let cachedValue = cache.get(key);
+        expect(cachedValue).toBe(value);
     });
     
     it('should return null when there is no value by key', () => {
         const key = "key";
         let cache = new Cache();
 
-        let cached_value = cache.get(key);
+        let cachedValue = cache.get(key);
 
-        expect(cached_value).toBe(null);
+        expect(cachedValue).toBe(null);
     });
 
     it('should let you override value by key', () => {
@@ -52,16 +52,16 @@ describe("number of queries cache feature", () => {
     it('should return null after setted number of queries', () => {
         const key = "key";
         const value = "value"
-        const number_of_queries = 2;
+        const numberOfQueries = 2;
         let cache = new Cache();
 
-        cache.set(key, value, number_of_queries);
+        cache.set(key, value, numberOfQueries);
         
         cache.get(key);
         cache.get(key);
         
-        const cached_value = cache.get(key);
-        expect(cached_value).toBe(null);
+        const cachedValue = cache.get(key);
+        expect(cachedValue).toBe(null);
     });
 
     it('should use number of queries = 1 as default', () => {
@@ -103,15 +103,15 @@ describe('cache statistics', () => {
     it('should return queries list for one query', () => {
         const key = "key";
         const value = "value";
-        const number_of_queries = 3;
+        const numberOfQueries = 3;
         let cache = new Cache();
 
-        cache.set(key, value, number_of_queries) ;
+        cache.set(key, value, numberOfQueries) ;
         cache.get(key);
 
         const statistics = cache.statistics();
-        expect(statistics).toEqual([`set ${key}, ${value}, ${number_of_queries}`, 
-                                    `get ${key} ${number_of_queries - 1}`]);
+        expect(statistics).toEqual([`set ${key}, ${value}, ${numberOfQueries}`, 
+                                    `get ${key} ${numberOfQueries - 1}`]);
     });
 
     it('should not add invalid queries to statistics', () => {
