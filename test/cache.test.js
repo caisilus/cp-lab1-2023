@@ -74,4 +74,19 @@ describe("number of queries cache feature", () => {
         cache.get(key);
         expect(cache.get(key)).toBe(null);
     });
+
+    it ('should be able to reset value and number of queries after expiration', () => {
+        const key = "key";
+        const value = "value";
+        let cache = new Cache();
+
+        cache.set(key, value, 2);
+        cache.get(key);
+        cache.get(key);
+        cache.get(key);
+
+        cache.set(key, value);
+        expect(cache.get(key)).toBe(value);
+        expect(cache.get(key)).toBe(null);
+    });
 });
