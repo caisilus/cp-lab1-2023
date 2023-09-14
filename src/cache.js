@@ -2,7 +2,7 @@ class Cache{
     constructor () {
         this.data = new Map()
     }
-    set(key, value, number_of_queries) {
+    set(key, value, number_of_queries=1) {
         this.data.set(key, {
             value: value,
             number_of_queries: number_of_queries
