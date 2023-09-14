@@ -113,4 +113,18 @@ describe('cache statistics', () => {
         expect(statistics).toEqual([`set ${key}, ${value}, ${number_of_queries}`, 
                                     `get ${key} ${number_of_queries - 1}`]);
     });
+
+    it('should not add invalid queries to statistics', () => {
+        const key1 = "key";
+        const key2 = "invalid key";
+        const value = "value";
+        let cache = new Cache();
+
+        cache.set(key1, value);
+        cache.get(key1);
+        cache.get(key2);
+        const statistics = cache.statistics();
+        expect(statistics).toEqual([`set ${key1}, ${value}, 1`,
+                                    `get ${key1} 0`]);
+    })
 });
